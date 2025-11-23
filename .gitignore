@@ -1,0 +1,22 @@
+# CLion
+.idea/
+cmake-build-debug/
+cmake-build-release/
+
+# CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Compiled objects
+*.o
+*.obj
+*.so
+*.dll
+*.dylib
+*.exe
+
+# OS things
+.DS_Store
+Thumbs.db
