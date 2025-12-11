@@ -1,8 +1,10 @@
 #include <iostream>
+#include "Task.h"
 using namespace std;
 int main() {
-    cout<<"Hello World!";
-    cout<<"\nTesting Testing by Shayan";
+    Task t1(1, "Test","Checking", 5,30,10);
+    cout<<"Testing task code";
+    t1.display();
     return 0;
 }
 // TIP See CLion help at <a

@@ -1,0 +1,33 @@
+// Created by shayan on 12/11/2025.
+#ifndef PRIORITY_BASED_TASK_MANAGEMENT_SCHEDULING_SYSTEM_TASK_H
+#define PRIORITY_BASED_TASK_MANAGEMENT___SCHEDULING_SYSTEM_TASK_H
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct Task {
+    int id;
+    string name;
+    string description;
+    int priority;
+    int duration;
+    int deadline;
+    Task(int i, string n, string desc, int p, int dur, int d) {
+        id = i;
+        name = n;
+        description = desc;
+        priority = p;
+        duration = dur;
+        deadline = d;
+    }
+    void display() const {
+        cout<<"\n[ID: "<<id<<"] Task: "<<name;
+        cout<<"\n Description: "<<description;
+        cout<<"\n Priority: "<<priority;
+        cout<<"\n Duration: "<<duration;
+        cout<<"\n Deadline: "<<deadline;
+    }
+};
+
+
+#endif //PRIORITY_BASED_TASK_MANAGEMENT___SCHEDULING_SYSTEM_TASK_H
