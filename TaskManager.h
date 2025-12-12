@@ -10,6 +10,12 @@
 #include"Task.h"
 using namespace std;
 
+struct TaskCompare {
+    bool operator()(const Task& a, const Task& b) {
+        return a.priority < b.priority;
+    }
+};
+
 class TaskManager {
   unordered_map<int, Task> tasks;
 public:
