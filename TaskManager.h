@@ -49,6 +49,15 @@ public:
           cout<<"Task with ID"<< id <<"not found"<<endl;
       }
   }
+
+   void getNextTask() {
+      if (taskQueue.empty()) {
+          cout << "\nNo tasks in the queue!"<<endl;
+          return;
+      }
+      Task highestTask = taskQueue.top();
+      highestTask.display();
+  }
 };
 
 #endif //PRIORITY_BASED_TASK_MANAGEMENT___SCHEDULING_SYSTEM_TASKMANAGER_H
