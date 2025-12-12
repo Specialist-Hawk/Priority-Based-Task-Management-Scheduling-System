@@ -6,7 +6,10 @@
 #define PRIORITY_BASED_TASK_MANAGEMENT___SCHEDULING_SYSTEM_TASKMANAGER_H
 
 #include<iostream>
+#include <queue>
 #include<unordered_map> //This si for Hash map
+#include <vector>
+
 #include"Task.h"
 using namespace std;
 
@@ -17,7 +20,8 @@ struct TaskCompare {
 };
 
 class TaskManager {
-  unordered_map<int, Task> tasks;
+    unordered_map<int, Task> tasks;
+    priority_queue<Task, vector<Task>, TaskCompare> taskQueue;
 public:
   void addTask(int id, string name, string desc, int priority, int duration, int deadline) {
       if(tasks.find(id) != tasks.end()) {
@@ -26,6 +30,7 @@ public:
       }
       Task newTask(id, name, desc, priority,duration, deadline);
       tasks.insert({id, newTask});
+      taskQueue.push(newTask);
       cout<<"Task added"<<endl;
   }
 
@@ -46,7 +51,7 @@ public:
           cout<<"Task Found:";
           tasks.at(id).display();
       } else {
-          cout<<"Task with ID"<< id <<"not found"<<endl;
+          cout<<"Task with ID"<<id<<"not found"<<endl;
       }
   }
 

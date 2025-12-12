@@ -25,8 +25,9 @@ struct Task {
         cout<<"\n Description: "<<description;
         cout<<"\n Priority: "<<priority;
         cout<<"\n Duration: "<<duration;
-        cout<<"\n Deadline: "<<deadline;
+        cout<<"\n Deadline: "<<deadline<<endl;
     }
+
 };
 
 

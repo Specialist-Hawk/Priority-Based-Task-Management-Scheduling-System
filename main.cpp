@@ -3,13 +3,11 @@
 using namespace std;
 int main() {
     TaskManager tm;
-    cout<<"testing task Manager";
     tm.addTask(101, "Fix Login", "Fix crash on startup", 10, 30, 2);
     tm.addTask(102, "Do laundry", "Finish all the clothes in my room", 5, 60, 5);
-
+    cout<<"Tetsing Priority Queue"<<endl;
     tm.displayAll();
-    cout<<"\nSearching for Task 101.."<<endl;
-    tm.findTask(101);
+    tm.getNextTask();
     return 0;
 }
 // TIP See CLion help at <a
