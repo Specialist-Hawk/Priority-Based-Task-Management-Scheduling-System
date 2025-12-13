@@ -28,6 +28,9 @@ struct Task {
         cout<<"\n Deadline: "<<deadline<<endl;
     }
 
+    bool operator<(const Task &b) const {
+        return priority < b.priority;
+    }
 };
 
 

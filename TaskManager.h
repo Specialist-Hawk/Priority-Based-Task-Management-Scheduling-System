@@ -9,19 +9,14 @@
 #include <queue>
 #include<unordered_map> //This si for Hash map
 #include <vector>
-
 #include"Task.h"
+#include"TaskHolder.h"
 using namespace std;
-
-struct TaskCompare {
-    bool operator()(const Task& a, const Task& b) {
-        return a.priority < b.priority;
-    }
-};
 
 class TaskManager {
     unordered_map<int, Task> tasks;
-    priority_queue<Task, vector<Task>, TaskCompare> taskQueue;
+    priority_queue<Task> taskQueue;
+    TaskHolder* historyHead=nullptr;
 public:
   void addTask(int id, string name, string desc, int priority, int duration, int deadline) {
       if(tasks.find(id) != tasks.end()) {
@@ -30,7 +25,7 @@ public:
       }
       Task newTask(id, name, desc, priority,duration, deadline);
       tasks.insert({id, newTask});
-      taskQueue.push(newTask);
+      taskQueue.push(newTask); //adds to the queue
       cout<<"Task added"<<endl;
   }
 
@@ -56,12 +51,41 @@ public:
   }
 
    void getNextTask() {
-      if (taskQueue.empty()) {
-          cout << "\nNo tasks in the queue!"<<endl;
+      while (!taskQueue.empty()) {
+          Task topTask = taskQueue.top();
+
+          if (tasks.find(topTask.id) != tasks.end()) {
+              cout<<"\n Recommened Task";
+              topTask.display();
+              return;
+          }
+          taskQueue.pop();
+      }
+      cout<<"\nNo tasks found"<<endl;
+  }
+   void removeTask(int id) {
+      if (tasks.find(id) == tasks.end()) {
+          cout<<"Task with ID"<<id<<"not found"<<endl;
           return;
       }
-      Task highestTask = taskQueue.top();
-      highestTask.display();
+      Task completed = tasks.at(id);
+      TaskHolder *newNode = new TaskHolder(completed);
+      newNode->next = historyHead;
+      historyHead = newNode;
+      tasks.erase(id);
+      cout<<"\nTask completed"<<endl;
+  }
+   void History() {
+      if (historyHead == nullptr) {
+          cout<<"No tasks found in History"<<endl;
+          return;
+      }
+      cout<<"\nTask History"<<endl;
+      TaskHolder* current = historyHead;
+      while (current != nullptr) {
+          cout<<current->task.name <<endl;
+          current = current->next;
+      }
   }
 };
 
