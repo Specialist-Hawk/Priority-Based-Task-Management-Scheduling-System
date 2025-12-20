@@ -2,15 +2,18 @@
 // Created by shayan on 12/13/2025.
 //
 
-#ifndef PRIORITY_BASED_TASK_MANAGEMENT___SCHEDULING_SYSTEM_TASKHOLDER_H
-#define PRIORITY_BASED_TASK_MANAGEMENT___SCHEDULING_SYSTEM_TASKHOLDER_H
+#ifndef PRIORITY_BASED_TASK_MANAGEMENT_SCHEDULER_TASKHOLDER_H
+#define PRIORITY_BASED_TASK_MANAGEMENT_SCHEDULER_TASKHOLDER_H
+
 #include "Task.h"
-struct TaskHolder{
+
+// Simple singly-linked node to store completed tasks (history)
+struct TaskHolder {
     Task task;
     TaskHolder* next;
-    Task Node(Task t) {
-        task = t;
-        next = NULL;
-    }
+
+    // Constructor
+    TaskHolder(const Task &t) : task(t), next(nullptr) {}
 };
-#endif //PRIORITY_BASED_TASK_MANAGEMENT___SCHEDULING_SYSTEM_TASKHOLDER_H
+
+#endif // PRIORITY_BASED_TASK_MANAGEMENT_SCHEDULER_TASKHOLDER_H

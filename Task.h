@@ -1,6 +1,7 @@
 // Created by shayan on 12/11/2025.
-#ifndef PRIORITY_BASED_TASK_MANAGEMENT___SCHEDULING_SYSTEM_TASK_H
-#define PRIORITY_BASED_TASK_MANAGEMENT___SCHEDULING_SYSTEM_TASK_H
+#ifndef PRIORITY_BASED_TASK_MANAGEMENT_SCHEDULER_TASK_H
+#define PRIORITY_BASED_TASK_MANAGEMENT_SCHEDULER_TASK_H
+
 #include <iostream>
 #include <string>
 using namespace std;
@@ -12,14 +13,11 @@ struct Task {
     int priority;
     int duration;
     int deadline;
-    Task(int i, string n, string desc, int p, int dur, int d) {
-        id = i;
-        name = n;
-        description = desc;
-        priority = p;
-        duration = dur;
-        deadline = d;
-    }
+
+    Task() = default;
+    Task(int i, const string &n, const string &desc, int p, int dur, int d)
+        : id(i), name(n), description(desc), priority(p), duration(dur), deadline(d) {}
+
     void display() const {
         cout<<"\n[ID: "<<id<<"] Task: "<<name;
         cout<<"\n Description: "<<description;
@@ -28,10 +26,10 @@ struct Task {
         cout<<"\n Deadline: "<<deadline<<endl;
     }
 
+    // For priority_queue: higher priority value => higher precedence (top)
     bool operator<(const Task &b) const {
         return priority < b.priority;
     }
 };
 
-
-#endif //PRIORITY_BASED_TASK_MANAGEMENT___SCHEDULING_SYSTEM_TASK_H
+#endif // PRIORITY_BASED_TASK_MANAGEMENT_SCHEDULER_TASK_H

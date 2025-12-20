@@ -1,17 +1,18 @@
 #include <iostream>
 #include "TaskManager.h"
 using namespace std;
+
 int main() {
     TaskManager tm;
     int choice;
 
     int id, priority, duration, deadline;
     string name, description;
-    cout<<"====================================="<<endl;
+    cout<<"========================================"<<endl;
     cout<<"  PRIORITY-BASED TASK SCHEDULER SYSTEM"<<endl;
-    cout<<"==================================="<<endl;
+    cout<<"========================================"<<endl;
     while (true) {
-        cout<<"Main Menu"<<endl;
+        cout<<"\nMain Menu"<<endl;
         cout<<"1. Add Task"<<endl;
         cout<<"2. Completed Task"<<endl;
         cout<<"3. Show All Tasks"<<endl;
@@ -19,27 +20,28 @@ int main() {
         cout<<"5. Undo Last Completion"<<endl;
         cout<<"6. View History"<<endl;
         cout<<"0. Exit"<<endl;
+        cout<<"Enter choice: ";
         cin>>choice;
         cin.ignore();
         switch (choice) {
             case 1:
-                cout<<"Enter ID: "<<endl;
+                cout<<"Enter ID: ";
                 cin>>id;
                 cin.ignore();
-                cout<<"Enter Name: "<<endl;
+                cout<<"Enter Name: ";
                 getline(cin,name);
-                cout<<"Enter Description: "<<endl;
+                cout<<"Enter Description: ";
                 getline(cin,description);
-                cout<<"Enter Priority: "<<endl;
+                cout<<"Enter Priority (1-10): ";
                 cin>>priority;
-                cout<<"Enter Duration: "<<endl;
+                cout<<"Enter Duration (Mins): ";
                 cin>>duration;
-                cout<<"Enter Deadline: "<<endl;
+                cout<<"Enter Deadline (Hours): ";
                 cin>>deadline;
                 tm.addTask(id, name, description, priority, duration, deadline);
                 break;
             case 2:
-                cout<<"Enter Task ID to remove: "<<endl;
+                cout<<"Enter Task ID to remove (complete): ";
                 cin>>id;
                 tm.removeTask(id);
                 break;
@@ -63,7 +65,3 @@ int main() {
         }
     }
 }
-// TIP See CLion help at <a
-// href="https://www.jetbrains.com/help/clion/">jetbrains.com/help/clion/</a>.
-//  Also, you can try interactive lessons for CLion by selecting
-//  'Help | Learn IDE Features' from the main menu
