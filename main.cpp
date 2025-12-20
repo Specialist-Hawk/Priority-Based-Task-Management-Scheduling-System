@@ -11,6 +11,11 @@ int main() {
     tm.removeTask(101);
     tm.displayAll();
     tm.History();
+
+    cout << "\n--- Testing Undo ---" << endl;
+    tm.undo();      // Should restore the taskjust finished
+    tm.displayAll(); //it appears in the list again
+
     return 0;
 }
 // TIP See CLion help at <a

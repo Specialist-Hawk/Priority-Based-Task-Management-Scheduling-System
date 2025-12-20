@@ -87,6 +87,18 @@ public:
           current = current->next;
       }
   }
+   void undo() {
+      if (historyHead == nullptr) {
+          cout<<"No tasks found in History"<<endl;
+          return;
+      }
+      TaskHolder* nodeDelete = historyHead;
+      Task restore = nodeDelete->task;
+      tasks.insert({restore.id, restore});
+      taskQueue.push(restore);
+      historyHead = historyHead->next;
+      delete nodeDelete;
+  }
 };
 
 #endif //PRIORITY_BASED_TASK_MANAGEMENT___SCHEDULING_SYSTEM_TASKMANAGER_H
