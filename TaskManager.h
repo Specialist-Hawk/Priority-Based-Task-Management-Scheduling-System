@@ -13,33 +13,29 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-
+#include <chrono>
 #include "Task.h"
 #include "TaskHolder.h"
-
 using namespace std;
 
 class TaskManager {
-    unordered_map<int, Task> tasks;      // incomplete/current tasks
-    priority_queue<Task> taskQueue;      // for recommendation (highest priority first)
-    TaskHolder* historyHead = nullptr;   // completed tasks (linked list, newest at head)
-
-    // files
+    unordered_map<int, Task> tasks;      //incomplete/current tasks
+    priority_queue<Task> taskQueue;      //for recommendation of highest priority task
+    TaskHolder* historyHead = nullptr;   //completed tasks (linked list, newest at head)
+    //files for file handling
     const string incompleteFile = "incomplete_tasks.txt";
     const string completedFile = "completed_tasks.txt";
 
 public:
-    TaskManager() {
+    TaskManager(){
         loadIncompleteTasks();
         loadCompletedTasks();
     }
 
-    ~TaskManager() {
-        // ensure current state is persisted
+    ~TaskManager(){
         saveIncompleteTasks();
         saveCompletedTasks();
-        // free history nodes
-        while (historyHead) {
+        while (historyHead){
             TaskHolder* tmp = historyHead;
             historyHead = historyHead->next;
             delete tmp;
@@ -47,15 +43,23 @@ public:
     }
 
     void addTask(int id, const string &name, const string &desc, int priority, int duration, int deadline) {
-        if(tasks.find(id) != tasks.end()) {
+        auto start = chrono::high_resolution_clock::now(); //Starts timer
+
+        if(tasks.find(id) !=tasks.end()){
             cout<<"Task already exists"<<endl;
             return;
         }
         Task newTask(id, name, desc, priority, duration, deadline);
         tasks.insert({id, newTask});
-        taskQueue.push(newTask); // adds to the priority queue
+        taskQueue.push(newTask); //adds task to priority queue
         cout<<"Task added"<<endl;
         saveIncompleteTasks();
+        //stops the timer and calculates
+        auto end = chrono::high_resolution_clock::now();
+        chrono::duration<double, milli> elapsed=end - start;
+
+        //Print time taken
+        cout<<"   [Performance]: Task added in "<<elapsed.count()<<" ms"<< endl;
     }
 
     void displayAll() {
@@ -71,21 +75,29 @@ public:
     }
 
     void findTask(int id) {
-        if(tasks.find(id) != tasks.end()) {
+        if(tasks.find(id) != tasks.end()){
             cout<<"Task Found:";
             tasks.at(id).display();
-        } else {
+        } else{
             cout<<"Task with ID "<<id<<" not found"<<endl;
         }
     }
 
     void getNextTask() {
-        while (!taskQueue.empty()) {
+        //start Timers
+        auto start = chrono::high_resolution_clock::now();
+        while (!taskQueue.empty()){
             Task topTask = taskQueue.top();
-            // Verify it still exists in tasks (not completed)
-            if (tasks.find(topTask.id) != tasks.end()) {
+
+            if (tasks.find(topTask.id) !=tasks.end()){ //verify it still exists in tasks (not completed)
+
+                //stops timer
+                auto end = chrono::high_resolution_clock::now();
+                chrono::duration<double, milli> elapsed = end - start;
+
                 cout<<"\nRecommended Task";
                 topTask.display();
+                cout << "\n   [Performance]: Recommendation found in " <<elapsed.count()<< " ms"<<endl;
                 return;
             }
             taskQueue.pop();
